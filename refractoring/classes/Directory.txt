@@ -1,0 +1,121 @@
+
+import java.util.ArrayList;
+
+/**
+ * @author Travis Pavelka
+**/
+
+
+public class Directory {
+	public static final Directory DEFAULT_ROOT_DIR
+			= new Directory(new String[] {Folder.ROOT_GROUP_NAME});
+	
+	private ArrayList<String> directory;
+	public final ArrayList<String> copyPath() {
+		ArrayList<String> copy = new ArrayList<String>();
+		
+		for(String folder: copy) {
+			copy.add(folder);
+		}
+		
+		return copy;
+	}
+	public final String getPath(int depth) {
+		return this.directory.get(depth);
+	}
+	public final void into(String dir) {
+		this.directory.add(dir);
+	}
+	public final void replacePath(int depth, String folder_name) {
+		this.directory.set(depth, folder_name);
+	}
+	public final void setDirectory(String[] directory) {
+		this.directory.clear();
+		for(String dir: directory) {
+			this.directory.add(dir);
+		}
+	}
+	public final void setDirectory(ArrayList<String> directory) {
+		this.directory = directory;
+	}
+	
+	@Override
+	public Directory clone() {
+		Directory copy = new Directory();
+		for(String dir: this.copyPath()) {
+			copy.into(dir);
+		}
+		return copy;
+	}
+	
+	@Override
+	public boolean equals(Object directory) {
+		if(directory == this) {
+			return true;
+		}
+		if(!(directory instanceof Directory)) {
+			return false;
+		}
+		if(this.directory.equals(((Directory) directory).copyPath())) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	@Override
+	public int hashCode() {
+		int hash = 0;
+		if(this.directory.size() > 3) {
+			for(char c: this.directory.get(this.directory.size()-4).toCharArray()) {
+				hash += c;
+			}
+		}
+		if(this.directory.size() > 2) {
+			for(char c: this.directory.get(this.directory.size()-3).toCharArray()) {
+				hash += c;
+			}
+		}
+		if(this.directory.size() > 1) {
+			for(char c: this.directory.get(this.directory.size()-2).toCharArray()) {
+				hash += c;
+			}
+		}
+		for(char c: this.directory.get(this.directory.size()-1).toCharArray()) {
+			hash += c;
+		}
+		return hash;
+	}
+	
+	@Override
+	public String toString() {
+		String path = "";
+		for(int i = 0; i < this.directory.size(); i++) {
+			if(i != this.directory.size() - 1) {
+				path += this.directory.get(i) + "/";
+			} else {
+				path += this.directory.get(i);
+			}
+		}
+		return "Directory["+path+"]";
+	}
+
+	public Directory() {
+		this.directory = new ArrayList<String>();
+	}
+	public Directory(String[] directory) {
+		this.directory = new ArrayList<String>();
+		if(directory != null) {
+			for(String dir: directory) {
+				this.directory.add(dir);
+			}
+		}
+	}
+	public Directory(ArrayList<String> directory) {
+		if(directory == null) {
+			this.directory = new ArrayList<String>();
+		} else {
+			this.directory = directory;
+		}
+	}
+}
