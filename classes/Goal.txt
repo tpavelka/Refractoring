@@ -1,0 +1,68 @@
+
+import java.util.Vector;
+
+/**
+ * Goals - things you want to do.
+ * @author Travis Pavelka
+ */
+public class Goal {
+	
+	private int priority;
+	public Integer copyPriority() {
+		return new Integer(this.priority);
+	}
+	public void setPriority(int priority) {
+		this.priority = priority;
+	}
+	
+	private String event;
+	public String copyEvent() {
+		return new String(this.event);
+	}
+	public void setEvent(String event) {
+		if(!this.isFinal) {
+			this.event = event;
+		}
+	}
+	
+	private boolean isFinal;
+	public Boolean copyIsFinal() {
+		return new Boolean(this.isFinal);
+	}
+	
+	private Vector<Goal> subgoals = new Vector<Goal>();
+	public Vector<Goal> getSubGoals() {
+		return this.subgoals;
+	}
+	public void addSubGoal(Goal goal) {
+		this.subgoals.add(goal);
+	}
+	
+	@Override
+	public String toString() {
+		String temp = "Goal["+this.event+"\n\n";
+		
+		for (Goal g : subgoals) {
+			temp += "\t"+g.event+"\n";
+		}
+		temp += "]";
+		
+		return temp;
+	}
+	
+	@Override
+	public boolean equals(Goal goal) {
+		return (this.event.equals(goal.event)) ? true : false;
+	}
+	
+	/**
+	 * @param priority -1 if undetermined
+	 * @param isFinal true if this goal should be immutable
+	 */
+	public Goal(int priority, String event, boolean isFinal) {
+		this.priority = priority;
+		this.event = event;
+		this.isFinal = isFinal;
+	}
+}
+

@@ -1,0 +1,22 @@
+/**
+ * Sees if the first color is within range of the second color.
+**/
+public boolean isColorWithinRangeOfColor(Color c1, Color c2, int range) {
+	// test red
+	if(Math.abs(c1.getRed() - c2.getRed()) > range) {
+		return false;
+	}
+	
+	// test green
+	if(Math.abs(c1.getGreen() - c2.getGreen()) > range) {
+		return false;
+	}
+	
+	// test blue
+	if(Math.abs(c1.getBlue() - c2.getBlue()) > range) {
+		return false;
+	}
+	
+	// within range
+	return true;
+}
